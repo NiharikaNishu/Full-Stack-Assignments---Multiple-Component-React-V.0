@@ -1,50 +1,27 @@
 import React, { Component, useState } from "react";
 import "../styles/App.css";
+import Project from "./Project";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      renderBall: false, //variable needed to be changed
-      posi: 0,
-      ballPosition: { left: "0px" }
-    };
-    this.renderChoice = this.renderChoice.bind(this);
-    this.buttonClickHandler = this.buttonClickHandler.bind(this);
-    this.handleKey = this.handleKey.bind(this);
-  }
-
-  //call back function
-  buttonClickHandler() {
-    this.setState({ renderBall: true });
-  }
-  renderChoice() {
-    if (this.state.renderBall) {
-      return <div className="ball" style={this.state.ballPosition}></div>;
-    } else
-      return (
-        <button onClick={this.buttonClickHandler}>Click For One Ball</button>
-      );
-  }
-
-  //bind ArrowRight keydown event
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKey);
-  }
-
-  handleKey(event) {
-    if (event.keyCode === 39) {
-      this.setState({
-        ballPosition: {
-          left: +this.state.ballPosition.left.split("px")[0] + 5 + "px"
-        }
-      });
+const App = () => {
+  const projects = [
+    {
+      heading: "Linkedin",
+      description:
+        "LinkedIn is an American business and employment-oriented online service that operates via websites and mobile apps. Launched on May 5, 2003, it is mainly used for professional networking, including employers posting jobs and job seekers posting their CVs."
+    },
+    {
+      heading: "Amazon",
+      description:
+        "Amazon.com, Inc. is an American multinational technology company based in Seattle, Washington, which focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence."
     }
-  }
-
-  render() {
-    return <div className="playground">{this.renderChoice()}</div>;
-  }
-}
+  ];
+  return (
+    <>
+      {projects.map((item) => (
+        <Project heading={item.heading} description={item.description} />
+      ))}
+    </>
+  );
+};
 
 export default App;
